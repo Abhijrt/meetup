@@ -14,6 +14,7 @@ export function FavouriteContextProvider (props) {
     const [userFavourites, setUserFavourites] = useState([]);
 
     function addFavouritesHandler (meetup) {
+        console.log("ADDING")
         setUserFavourites((prevFavourites) => {
             return prevFavourites.concat(meetup);
         })
@@ -21,11 +22,12 @@ export function FavouriteContextProvider (props) {
 
     function removeFavouritesHandler (meetupId) {
         setUserFavourites((prevFavourites) => {
-            return prevFavourites.filter((meetup) => meetup.id !== meetup );
+            return prevFavourites.filter(meetup => meetup.id !== meetupId );
         })
     }
 
     function checkIsFavourites (meetupId) {
+        console.log("CHECKUING")
         return userFavourites.some(meetup => meetup.id === meetupId)
     }
 
@@ -37,9 +39,11 @@ export function FavouriteContextProvider (props) {
         itemIsFavourite: checkIsFavourites
     };
 
-    return <FavouriteContext.Provider value={context}>
-        {props.children}
-    </FavouriteContext.Provider>
+    return (
+        <FavouriteContext.Provider value={context}>
+            {props.children}
+        </FavouriteContext.Provider>
+    )
 }
 
 export default FavouriteContext;
